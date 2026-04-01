@@ -1,3 +1,13 @@
+# Archived Draft Notice
+
+This document reflects an earlier ADSS framing centered on decision authorization prior to execution.
+
+That responsibility is now carried by SIS (Standard Intent Specification).
+
+ADSS has since been redefined as the system design standard for multi-agent workflows.
+
+This file is retained for historical reference only and is not the active ADSS specification.
+
 # Agentic Decision Systems Standard (ADSS)
 
 **Version:** 0.3 (Draft)  
