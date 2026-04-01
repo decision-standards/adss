@@ -85,30 +85,3 @@ ADSS introduces a canonical structure for designing agent systems:
 (decision contract)
         ↓
 [ Execution Systems ]
-
-⸻
-
-## Specification
-
-The full specification is available in:
-/spec/adss.md
-
-⸻
-
-## Status
-	•	Version: Draft v0.2.0
-	•	This standard is under active development and open for feedback
-
-⸻
-
-## License
-
-This project is released under the MIT License.
-
-⸻
-
-## Contributing
-
-Contributions, feedback, and implementation discussions are welcome.
-This standard is intended to be open and implementation-agnostic.
-
