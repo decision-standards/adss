@@ -71,6 +71,13 @@ ADSS introduces a canonical structure for designing agent systems:
 
 ---
 
+## Core Artifacts
+
+- `adss-v0.1.schema.json` → canonical ADSS schema
+- `adss-v0.1.example.json` → example multi-agent system definition
+
+---
+
 ## Where ADSS Fits
 
 ```text
