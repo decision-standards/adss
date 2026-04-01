@@ -1,94 +1,90 @@
-# Agentic Decision Systems Standard (ADSS)
-ADSS defines the decision layer required for autonomous and multi-agent systems to operate coherently.
+# ADSS — Agentic Decision System Specification
 
-⸻
+The system design standard for multi-agent workflows.
 
-## Overview
+ADSS defines how autonomous systems are structured, how agents interact, and where decisions occur within a system.
 
-The Agentic Decision Systems Standard (ADSS) specifies how decisions must be formed, evaluated, and authorized prior to execution in agentic systems.
+---
 
-As systems evolve from assistive tools to autonomous actors, the primary risk shifts from incorrect execution to unjustified execution. Existing approaches focus on how agents act. ADSS defines whether those actions should occur.
+## Relationship to SIS
 
-The standard introduces a structured decision layer that ensures all actions are grounded in explicit intent, constraints, and context.
+ADSS and SIS operate at different layers of the same system.
 
-⸻
+- **ADSS defines the system structure**
+- **SIS defines the decision contract within that structure**
 
-## Scope
+ADSS describes:
 
-ADSS applies to:
-	•	Autonomous agents performing multi-step tasks
-	•	Multi-agent systems coordinating shared objectives
-	•	Systems delegating execution authority to AI
+- flows
+- stages
+- agents
+- transitions
+- feedback loops
 
-ADSS does not define how agents are built, trained, or orchestrated. It defines the requirements for decision formation and authorization prior to execution.
+SIS defines:
 
-⸻
+- how each decision is evaluated
+- whether it is admissible
+- whether it can be executed
 
-## What This Standard Defines
+> ADSS structures the system.  
+> SIS governs each decision inside it.
 
-ADSS establishes:
-	•	A structured representation of intent
-	•	Explicit definition of constraints and boundaries
-	•	A formal decision evaluation process
-	•	A clear authorization boundary between decision and execution
-	•	System-level invariants required for coherence
+---
 
-⸻
+## Why ADSS Exists
 
-## What This Standard Does Not Define
+Most AI systems fail due to poor structure, not poor intelligence.
 
-ADSS is not:
-	•	An agent framework
-	•	An orchestration engine
-	•	A workflow or process automation tool
-	•	A model or training approach
+Common failure points:
 
-It is implementation-agnostic and can be applied across any agent architecture or execution environment.
+- unclear process flows
+- undefined agent responsibilities
+- hidden or inconsistent decision points
+- lack of feedback loops
+- fragmented orchestration across systems
 
-⸻
+Traditional process design tools were built for human workflows.
 
-## Core Concepts
+They do not translate well to:
 
-Intent
-The explicit objective an action is meant to achieve.
+- autonomous agents
+- continuous decision systems
+- dynamic, state-driven environments
 
-Constraints
-The boundaries, rules, and limitations within which a decision must operate.
+ADSS exists to define:
 
-Context
-The relevant state and information required to evaluate a decision.
+> how multi-agent systems are designed before they are built and executed
 
-Decision
-The evaluated outcome determining whether an action is authorized.
+---
 
-Execution Boundary
-The separation between decision authorization and action execution.
+## What ADSS Standardizes
 
-⸻
+ADSS introduces a canonical structure for designing agent systems:
 
-## System Invariants
+- **Flows** — ordered sequences of system activity
+- **Stages** — logical groupings of behavior
+- **Agents** — actors responsible for execution
+- **Decision Points** — where SIS evaluation is required
+- **Transitions** — how systems move between stages
+- **Feedback Loops** — how systems adapt and re-enter flows
 
-An ADSS-compliant system must ensure:
-	1.	No action occurs without an explicit, structured intent
-	2.	All decisions are evaluated against defined constraints
-	3.	Context used in decision-making is explicit and traceable
-	4.	Authorization occurs prior to execution
-	5.	Decisions are recorded as auditable artifacts
+---
 
-These invariants are non-optional.
+## Where ADSS Fits
 
-⸻
-
-## Relationship to Existing Systems
-
-Modern agentic systems increasingly support multi-step execution, tool use, and autonomous task completion.
-
-ADSS operates as a separate layer from:
-	•	agent frameworks
-	•	orchestration systems
-	•	execution environments
-
-It defines the decision system required for those components to operate coherently.
+```text
+[ System Design ]
+        ↓
+====== ADSS ======
+(structure + flow)
+        ↓
+[ Decision Points ]
+        ↓
+====== SIS ======
+(decision contract)
+        ↓
+[ Execution Systems ]
 
 ⸻
 
@@ -100,7 +96,7 @@ The full specification is available in:
 ⸻
 
 ## Status
-	•	Version: Draft v0.3
+	•	Version: Draft v0.2.0
 	•	This standard is under active development and open for feedback
 
 ⸻
