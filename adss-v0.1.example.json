@@ -1,0 +1,164 @@
+{
+    "system_id": "8db18d87-d63f-4ebc-95fd-f5b5d12db1b5",
+    "schema_version": "0.1.0",
+    "created_at": "2026-04-01T16:30:00Z",
+    "name": "Member Retention Offer Flow",
+    "description": "Multi-agent flow for detecting attrition risk and selecting a retention action.",
+    "objective": {
+      "title": "Reduce member attrition",
+      "success_metric": "retention_rate",
+      "target": "+8%",
+      "time_horizon": "90d"
+    },
+    "agents": [
+      {
+        "agent_id": "0d3527dc-148d-4a18-b9e4-e2759cc0f9ac",
+        "name": "Signal Detector",
+        "role": "Detect attrition indicators",
+        "capabilities": ["event detection", "pattern recognition"],
+        "owns_stages": ["detection"]
+      },
+      {
+        "agent_id": "7362fb42-c1a0-42c4-8ccd-d13af2284a67",
+        "name": "Context Builder",
+        "role": "Assemble member decision context",
+        "capabilities": ["context assembly", "profile enrichment"],
+        "owns_stages": ["evaluation"]
+      },
+      {
+        "agent_id": "ddf46810-8130-4f6d-956b-73454db24579",
+        "name": "Offer Executor",
+        "role": "Deliver approved retention offer",
+        "capabilities": ["offer delivery", "channel execution"],
+        "owns_stages": ["action"]
+      }
+    ],
+    "flows": [
+      {
+        "flow_id": "fe6b7bf6-c4aa-4eb6-b43d-dae24ff27840",
+        "name": "Attrition Mitigation Flow",
+        "description": "Structured path from signal detection to offer action.",
+        "entry_node_id": "trigger_1",
+        "nodes": [
+          {
+            "node_id": "trigger_1",
+            "node_type": "event",
+            "name": "Attrition Signal Received",
+            "event_kind": "trigger",
+            "description": "The system receives an attrition-risk signal."
+          },
+          {
+            "node_id": "stage_1",
+            "node_type": "stage",
+            "name": "Detection",
+            "stage_id": "detection",
+            "owner_agent_id": "0d3527dc-148d-4a18-b9e4-e2759cc0f9ac",
+            "stage_kind": "intake",
+            "inputs": ["member event stream"],
+            "outputs": ["risk signal"]
+          },
+          {
+            "node_id": "stage_2",
+            "node_type": "stage",
+            "name": "Evaluation",
+            "stage_id": "evaluation",
+            "owner_agent_id": "7362fb42-c1a0-42c4-8ccd-d13af2284a67",
+            "stage_kind": "evaluation",
+            "inputs": ["risk signal", "member profile"],
+            "outputs": ["decision context"]
+          },
+          {
+            "node_id": "decision_1",
+            "node_type": "decision",
+            "name": "Offer Decision",
+            "decision_kind": "selection",
+            "sis_ref": {
+              "intent_type": "offer_decision",
+              "schema_version": "0.2.0",
+              "profile": "financial_services"
+            },
+            "possible_outcomes": ["allow", "deny", "escalate"]
+          },
+          {
+            "node_id": "stage_3",
+            "node_type": "stage",
+            "name": "Action",
+            "stage_id": "action",
+            "owner_agent_id": "ddf46810-8130-4f6d-956b-73454db24579",
+            "stage_kind": "action",
+            "inputs": ["approved offer"],
+            "outputs": ["delivered offer"]
+          },
+          {
+            "node_id": "stage_4",
+            "node_type": "stage",
+            "name": "Monitoring",
+            "stage_id": "monitoring",
+            "owner_agent_id": "7362fb42-c1a0-42c4-8ccd-d13af2284a67",
+            "stage_kind": "monitoring",
+            "inputs": ["delivery results", "member response"],
+            "outputs": ["outcome signal"]
+          }
+        ],
+        "transitions": [
+          {
+            "transition_id": "t1",
+            "from_node_id": "trigger_1",
+            "to_node_id": "stage_1",
+            "condition_type": "always"
+          },
+          {
+            "transition_id": "t2",
+            "from_node_id": "stage_1",
+            "to_node_id": "stage_2",
+            "condition_type": "always"
+          },
+          {
+            "transition_id": "t3",
+            "from_node_id": "stage_2",
+            "to_node_id": "decision_1",
+            "condition_type": "always"
+          },
+          {
+            "transition_id": "t4",
+            "from_node_id": "decision_1",
+            "to_node_id": "stage_3",
+            "condition_type": "decision_outcome",
+            "condition": "allow",
+            "label": "Offer approved"
+          },
+          {
+            "transition_id": "t5",
+            "from_node_id": "decision_1",
+            "to_node_id": "stage_4",
+            "condition_type": "decision_outcome",
+            "condition": "deny",
+            "label": "No offer delivered"
+          },
+          {
+            "transition_id": "t6",
+            "from_node_id": "stage_3",
+            "to_node_id": "stage_4",
+            "condition_type": "always"
+          }
+        ],
+        "feedback_loops": [
+          {
+            "loop_id": "loop_1",
+            "from_node_id": "stage_4",
+            "to_node_id": "stage_2",
+            "reason": "Re-evaluate if member response changes context",
+            "trigger": "new_behavior_signal"
+          }
+        ]
+      }
+    ],
+    "global_constraints": [
+      {
+        "constraint_id": "gc_1",
+        "type": "approval_requirement",
+        "rule": "All decision nodes must reference SIS",
+        "severity": "block"
+      }
+    ]
+  }
