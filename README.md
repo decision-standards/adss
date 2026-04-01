@@ -100,7 +100,7 @@ The full specification is available in:
 ⸻
 
 ## Status
-	•	Version: Draft v0.1
+	•	Version: Draft v0.3
 	•	This standard is under active development and open for feedback
 
 ⸻
